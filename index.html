@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="app.js" defer></script>
+		<script src="shader.js" defer></script>
+		<link rel="stylesheet" href="styles.css" />
+		<title>The Grand Puzzle Challenge</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
+	</head>
+	<body>
+		<canvas id="shaderCanvas"></canvas>
+		<div id="content-wrapper">
+			<div id="content" class="center">
+				<div id="content-inner">
+					<h1>The Grand Puzzle Challenge</h1>
+					<div id="progress">Progress: <span id="progressValue">0</span>/10</div>
+					<div id="guesses">Guesses: <span id="guessesValue">3</span>/3</div>
+					<div id="instructions">
+						<h2>Instructions</h2>
+						<p>
+							Welcome to the Grand Puzzle Challenge. Your task is to solve the mysteries hidden within this webpage. Use the box below to submit
+							codes you find. These will be checked against the list, and if correct display the next hint. All codes will be English words or
+							numbers. Names do not count. The final code will signifify completion of every puzzle in the challenge and counts as a victory. Your
+							progress will be saved when leaving this page. Your progress will be displayed at the top of the screen. There are 10 parts of the
+							challenge. The first part is designed to teach you how to play. After the tutorial, it will feel like a nice slice of apple pie. And
+							then another slice of pie. And then suddenly its part 10 and someone just threw the rest of the pie into your face. Each day you get
+							to enter 3 codes. If you run out of guesses you will have to wait until they refresh the next day. If you enter the correct code,
+							your guesses will be reset to 3. Your progression and guesses will be saved and displayed at the top of the page.<br />
+							Your starting code is: <span id="code">BEGIN</span>
+						</p>
+						<p>Good luck!</p>
+					</div>
+					<div id="input">
+						<h2 style="user-select: text">Code Input</h2>
+						<input id="codeInput" type="text" placeholder="Enter code here..." oninput="this.value = this.value.toUpperCase();" />
+						<button id="submitCode">Check</button>
+						<div id="message" style="color: red; margin-top: 10px; user-select: text"></div>
+						<span id="lockIcon" style="display: none; user-select: text">🔒 Locked!</span>
+					</div>
+					<div id="hints">
+						<p id="hint1" style="display: none">Take a good <span style="color: beige">look</span> at the page...</p>
+						<p id="hint2" style="display: none">How clever of you. This one won't be so easy.</p>
+						<p id="hint3" style="display: none">
+							From now on the puzzles will not be solvable just off this page.<br />
+							Your clue: 19.625121672702754, 55.794303666558505<br />
+							Your hint: The solution is obvious when you've solved it
+						</p>
+						<p id="hint4" style="display: none">
+							Its only going to get harder from here...<br />
+							Some day i will figure out this Horrible puzzle, but I currently have Very little Energy remaining that i am willing to
+							contribute,<br />
+							maybe someone else will carry on my efforts as for them to not have been in vain. Really, i am awfully confused about this, but i
+							shall never tell.
+						</p>
+						<p id="hint5" style="display: none">
+							Now I know everything is going to work out fine if you keep going at this rate!<br />
+							Also congrats on passing the tutorial! Only 5 more!
+						</p>
+						<p id="hint6" style="display: none">
+							Wow. That was a hard one. I wasn't expecting you to solve it. Seriously impressive. Not many can get that one. Outstanding work.
+							Wow. Just wow.
+						</p>
+						<p id="hint7" style="display: none">
+							I could've told you this ζhallenge was simple, but honestly, that φould ruin the fun. βy the way, this one is 6 letters.
+						</p>
+						<p id="hint8" style="display: none">Bet you won't find this one! Its hidden away really well!</p>
+						<p id="hint9" style="display: none">
+							The finale has begun. Good luck! :)<br />
+							Your final hints are: <a href="https://youtu.be/Qskm9MTz2V4?si=eINtDR7BVcvMPCxP&t=16">This video</a> and to 1 decimal place.<br />
+							Note: It isn't in the video so dont bother watching it.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="deco">
+				<div class="floaters">
+					<div class="floater" style="top: 80%; left: 5%">Δ</div>
+					<div class="floater" style="top: 10%; left: 25%">∫</div>
+					<div class="floater" style="top: 60%; left: 40%">λ</div>
+					<div class="floater" style="top: 20%; left: 55%">Ω</div>
+					<div class="floater" style="top: 75%; left: 70%">φ</div>
+					<div class="floater" style="top: 30%; left: 85%">Σ</div>
+					<div class="floater" style="top: 50%; left: 15%">❖</div>
+					<div class="floater" style="top: 15%; left: 40%">ψ</div>
+					<div class="floater" style="top: 65%; left: 60%">χ</div>
+					<div class="floater" style="top: 40%; left: 80%">θ</div>
+				</div>
+				<div class="stars">
+					<div class="star" style="top: 5%; left: 3%">★</div>
+					<div class="star" style="top: 10%; left: 15%">✦</div>
+					<div class="star" style="top: 8%; left: 30%">★</div>
+					<div class="star" style="top: 12%; left: 45%">✦</div>
+					<div class="star" style="top: 7%; left: 60%">★</div>
+					<div class="star" style="top: 15%; left: 75%">✦</div>
+					<div class="star" style="top: 5%; left: 90%">★</div>
+					<div class="star" style="top: 20%; left: 10%">✦</div>
+					<div class="star" style="top: 18%; left: 25%">★</div>
+					<div class="star" style="top: 22%; left: 40%">✦</div>
+					<div class="star" style="top: 25%; left: 55%">★</div>
+					<div class="star" style="top: 28%; left: 70%">✦</div>
+					<div class="star" style="top: 30%; left: 85%">★</div>
+					<div class="star" style="top: 35%; left: 5%">✦</div>
+					<div class="star" style="top: 38%; left: 20%">★</div>
+					<div class="star" style="top: 40%; left: 35%">✦</div>
+					<div class="star" style="top: 42%; left: 50%">★</div>
+					<div class="star" style="top: 45%; left: 65%">✦</div>
+					<div class="star" style="top: 48%; left: 80%">★</div>
+					<div class="star" style="top: 50%; left: 95%">✦</div>
+					<div class="star" style="top: 55%; left: 8%">★</div>
+					<div class="star" style="top: 57%; left: 22%">✦</div>
+					<div class="star" style="top: 60%; left: 37%">★</div>
+					<div class="star" style="top: 62%; left: 52%">✦</div>
+					<div class="star" style="top: 65%; left: 67%">★</div>
+					<div class="star" style="top: 68%; left: 82%">✦</div>
+					<div class="star" style="top: 70%; left: 10%">★</div>
+					<div class="star" style="top: 73%; left: 25%">✦</div>
+					<div class="star" style="top: 75%; left: 40%">★</div>
+					<div class="star" style="top: 78%; left: 55%">✦</div>
+					<div class="star" style="top: 80%; left: 70%">★</div>
+					<div class="star" style="top: 82%; left: 85%">✦</div>
+					<div class="star" style="top: 85%; left: 5%">★</div>
+					<div class="star" style="top: 87%; left: 20%">✦</div>
+					<div class="star" style="top: 88%; left: 35%">★</div>
+					<div class="star" style="top: 90%; left: 50%">✦</div>
+					<div class="star" style="top: 92%; left: 65%">★</div>
+					<div class="star" style="top: 94%; left: 80%">✦</div>
+					<div class="star" style="top: 95%; left: 10%">★</div>
+					<div class="star" style="top: 97%; left: 30%">✦</div>
+				</div>
+			</div>
+		</div>
+		<div id="credits">
+			Version 1.0<br />
+			Author: <a href="https://github.com/montymous">montymous</a><br />
+			Shader: <a href="https://www.shadertoy.com/user/eclmist">eclmist</a> (Modified)
+		</div>
+	</body>
+</html>
